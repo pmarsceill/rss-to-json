@@ -6,7 +6,7 @@ const { parse } = pkg;
 (async () => {
     var rss = await parse('https://blog.ethereum.org/feed.xml');
 
-    //    var rss = await parse('https://medium.com/feed/@extropy-io');
+    // var rss = await parse('https://medium.com/feed/@extropy-io');
 
     console.log(JSON.stringify(rss, null, 3));
 })();

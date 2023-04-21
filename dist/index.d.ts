@@ -1,5 +1,20 @@
 import parse from "./parse";
-declare const Parse: (url: string, config?: any) => Promise<{
+declare const Parse: (url: RequestInfo | URL, options?: {
+    timeout: number;
+} & {
+    method?: string;
+    headers?: Record<string, string>;
+    body?: string;
+    mode?: "cors" | "no-cors" | "same-origin";
+    credentials?: "same-origin" | "omit" | "include";
+    cache?: "default" | "no-store" | "reload" | "no-cache" | "force-cache" | "only-if-cached";
+    redirect?: "follow" | "manual" | "error";
+    referrer?: string;
+    referrerPolicy?: "same-origin" | "no-referrer" | "no-referrer-when-downgrade" | "origin" | "origin-when-cross-origin" | "strict-origin" | "strict-origin-when-cross-origin" | "unsafe-url";
+    integrity?: string;
+    keepalive?: boolean;
+    signal?: AbortSignal;
+}) => Promise<{
     title: any;
     description: any;
     link: any;

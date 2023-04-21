@@ -1,11 +1,35 @@
 import { XMLParser } from 'fast-xml-parser';
 
-export default async (url: string, config?: any) => {
-    if (!/(^http(s?):\/\/[^\s$.?#].[^\s]*)/i.test(url)) return null;
+type FetchOptions = {
+    method?: string;
+    headers?: Record<string, string>;
+    body?: string;
+    mode?: 'cors' | 'no-cors' | 'same-origin';
+    credentials?: 'omit' | 'same-origin' | 'include';
+    cache?: 'default' | 'no-store' | 'reload' | 'no-cache' | 'force-cache' | 'only-if-cached';
+    redirect?: 'follow' | 'manual' | 'error';
+    referrer?: string;
+    referrerPolicy?: 'no-referrer' | 'no-referrer-when-downgrade' | 'origin' | 'origin-when-cross-origin' | 'same-origin' | 'strict-origin' | 'strict-origin-when-cross-origin' | 'unsafe-url';
+    integrity?: string;
+    keepalive?: boolean;
+    signal?: AbortSignal | null;
+};
 
-    // const { data } = await axios(url, config);
+export default async (url: RequestInfo | URL, options?: { timeout: number } & FetchOptions) => {
+    if (!/(^http(s?):\/\/[^\s$.?#].[^\s]*)/i.test(url as string)) return null;
 
-    const res = await fetch(url, config);
+    const { timeout = 60000 } = options || {};
+
+    const controller = new AbortController();
+    const id = setTimeout(() => controller.abort(), timeout);
+
+    const res = await fetch(url, {
+        ...options,
+        signal: controller.signal,
+    });
+
+    clearTimeout(id);
+
     const data = await res.text();
 
     const xml = new XMLParser({

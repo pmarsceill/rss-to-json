@@ -43,6 +43,8 @@ export default async (url: RequestInfo | URL, options?: { timeout: number } & Fe
     let channel = result.rss && result.rss.channel ? result.rss.channel : result.feed;
     if (Array.isArray(channel)) channel = channel[0];
 
+    if (!channel) throw new Error('Invalid RSS feed');
+
     const rss = {
         title: channel.title ?? '',
         description: channel.description ?? '',

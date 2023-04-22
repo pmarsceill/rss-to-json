@@ -12,16 +12,13 @@ type FetchOptions = {
     referrerPolicy?: 'no-referrer' | 'no-referrer-when-downgrade' | 'origin' | 'origin-when-cross-origin' | 'same-origin' | 'strict-origin' | 'strict-origin-when-cross-origin' | 'unsafe-url';
     integrity?: string;
     keepalive?: boolean;
-    signal?: AbortSignal | null;
 };
 
-export default async (url: RequestInfo | URL, options?: { timeout: number } & FetchOptions) => {
+export default async (url: RequestInfo | URL, options?: FetchOptions) => {
     if (!/(^http(s?):\/\/[^\s$.?#].[^\s]*)/i.test(url as string)) return null;
 
-    const { timeout = 60000 } = options || {};
-
     const controller = new AbortController();
-    const id = setTimeout(() => controller.abort(), timeout);
+    const id = setTimeout(() => controller.abort(), 60000);
 
     const res = await fetch(url, {
         ...options,

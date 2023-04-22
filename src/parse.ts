@@ -1,11 +1,11 @@
 import { XMLParser } from 'fast-xml-parser';
+import https from 'https';
 
 type FetchOptions = {
     method?: string;
     headers?: Record<string, string>;
     body?: string;
     mode?: 'cors' | 'no-cors' | 'same-origin';
-    credentials?: 'omit' | 'same-origin' | 'include';
     cache?: 'default' | 'no-store' | 'reload' | 'no-cache' | 'force-cache' | 'only-if-cached';
     redirect?: 'follow' | 'manual' | 'error';
     referrer?: string;
@@ -22,6 +22,12 @@ export default async (url: RequestInfo | URL, options?: FetchOptions) => {
 
     const res = await fetch(url, {
         ...options,
+        referrer: '',
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/xml',
+            'User-Agent': 'curl/7.64.1',
+        },
         signal: controller.signal,
     });
 

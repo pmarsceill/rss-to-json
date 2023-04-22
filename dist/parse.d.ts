@@ -3,7 +3,6 @@ type FetchOptions = {
     headers?: Record<string, string>;
     body?: string;
     mode?: 'cors' | 'no-cors' | 'same-origin';
-    credentials?: 'omit' | 'same-origin' | 'include';
     cache?: 'default' | 'no-store' | 'reload' | 'no-cache' | 'force-cache' | 'only-if-cached';
     redirect?: 'follow' | 'manual' | 'error';
     referrer?: string;

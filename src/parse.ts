@@ -1,5 +1,4 @@
 import { XMLParser } from 'fast-xml-parser';
-import https from 'https';
 
 type FetchOptions = {
     method?: string;

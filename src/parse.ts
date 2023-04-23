@@ -23,9 +23,11 @@ export default async (url: RequestInfo | URL, options?: FetchOptions) => {
         ...options,
         referrer: '',
         method: 'GET',
+        credentials: 'include',
+        mode: 'cors',
         headers: {
             'Content-Type': 'application/xml',
-            'User-Agent': 'curl/7.64.1',
+            'User-Agent': 'Mozilla/5.0 (compatible; FeedrBot/0.1; +http://www.feedr.run)',
         },
         signal: controller.signal,
     });

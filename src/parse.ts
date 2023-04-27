@@ -26,7 +26,7 @@ export default async (url: RequestInfo | URL, options?: FetchOptions) => {
         credentials: 'include',
         mode: 'cors',
         headers: {
-            'Content-Type': 'application/xml',
+            'Content-Type': 'text/plain',
             'User-Agent': 'Mozilla/5.0 (compatible; FeedrBot/0.1; +http://www.feedr.run)',
         },
         signal: controller.signal,
